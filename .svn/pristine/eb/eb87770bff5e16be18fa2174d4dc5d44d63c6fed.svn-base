@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [InterfaceTest]">
+  <parameter name="passWord" value="E10ADC3949BA59AB"/>
+  <parameter name="currentDrawSite" value="/user/draw/getCurrentDraw"/>
+  <parameter name="loginSite" value="/user/player/login"/>
+  <parameter name="phone" value="13911628155"/>
+  <parameter name="dLotteryFile" value="E:/资料/河北福彩/新版本/HP3直投.txt"/>
+  <parameter name="dLotterySite" value="/user/order/submitOrder"/>
+  <parameter name="url" value="http://222.223.231.76:8001"/>
+  <test name="InterfaceTest(failed)">
+    <classes>
+      <class name="com.palm.test.TestDirectLottery">
+        <methods>
+          <include name="afterClass"/>
+          <include name="testDirectLottery" invocation-numbers="0 1 2 3 4"/>
+          <include name="beforeMethod"/>
+        </methods>
+      </class> <!-- com.palm.test.TestDirectLottery -->
+      <class name="com.palm.test.Login">
+        <methods>
+          <include name="login"/>
+        </methods>
+      </class> <!-- com.palm.test.Login -->
+    </classes>
+  </test> <!-- InterfaceTest(failed) -->
+</suite> <!-- Failed suite [InterfaceTest] -->

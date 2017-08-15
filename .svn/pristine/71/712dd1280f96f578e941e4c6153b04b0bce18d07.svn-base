@@ -1,0 +1,58 @@
+package com.palm.test;
+
+import org.apache.log4j.Logger;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
+
+import com.alibaba.fastjson.JSON;
+import com.jersey.bean.LogFileRoot;
+import com.jersey.bean.LoginInfo;
+import com.palm.utils.FileUtil;
+import com.palm.utils.HttpRequestUtils;
+import com.palm.zson.Zson;
+import com.palm.zson.ZsonResult;
+
+/**
+ * Description: 登录，得到token、userid，创建failLog文件
+ * ClassName: Login 
+ * @author lingming.zeng
+ * @since JDK 1.8 Copyright (c) 2016, o2o-lottery All Rights Reserved.
+ */
+public class Login {
+	
+	private static Logger logger = Logger.getLogger(Login.class);
+	private static FileUtil failLog;
+	private static String token;
+	private static String userId;
+	
+	public static String getToken() {
+		return token ;
+	}
+	
+	public static String getUserId() {
+		return userId ;
+	}
+	
+	public static FileUtil getFailLog() {
+		failLog = new FileUtil();
+		failLog.createNewFile(LogFileRoot.getLogFileRoot()+"failLog.xml");
+		return failLog ;
+	}
+	
+	@BeforeSuite
+	@Parameters({"phone","passWord","url","loginSite"})
+	public void login(String phone,String passWord,String url,String loginSite) throws Exception {
+		logger.info("login");
+		LoginInfo loginInfo = new LoginInfo();
+		loginInfo.setPhone(phone);
+		loginInfo.setPassWord(passWord);
+		//发送登录请求，得到返回的json串
+		String response = HttpRequestUtils.httpPost(JSON.toJSONString(loginInfo),url+loginSite);
+		//解析json中的token
+		Zson z = new Zson();
+		ZsonResult zr = z.parseJson(response);
+		token = zr.getValues("//token").get(0).toString();
+		userId = zr.getValues("//userId").get(0).toString();
+	}
+
+}

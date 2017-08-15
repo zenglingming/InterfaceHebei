@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<!--  
+操作步骤：
+1.保证测试用例数据的正确
+2.配置接口地址和接口测试用例存放位置（注意斜杠为/）
+3.run as->TestNG Suite
+4.测试失败的结果存放在D:\testlog\failLog.xml
+-->
+
+<suite name="InterfaceTest" parallel="false">
+
+<!--接口IP：Port-->
+<parameter name="url" value="http://192.168.100.165:8080"></parameter>
+<!--登录接口地址-->
+<parameter name="loginSite" value="/user/player/login"></parameter>
+<parameter name="phone" value="13911628155"></parameter>
+<parameter name="passWord" value="E10ADC3949BA59AB"></parameter>
+<!--期次查询接口地址-->
+<parameter name="currentDrawSite" value="/user/draw/getCurrentDraw"></parameter>
+<!--直投接口地址及测试用例存放位置-->
+<parameter name="dLotterySite" value="/user/order/submitOrder"></parameter>
+<parameter name="dLotteryFile" value="E:/资料/河北福彩/新版本/HP3直投.txt"></parameter>
+
+  <test name="InterfaceTest" preserve-order="true">
+  	<classes>
+  		<class name="com.palm.test.Login"></class>
+  		<class name="com.palm.test.TestDirectLottery"></class>
+  	</classes>
+  </test>
+  
+</suite>
